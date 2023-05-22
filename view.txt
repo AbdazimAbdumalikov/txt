@@ -1,0 +1,24 @@
+#include <Servo.h>
+const int motionSensorPin = 2;  // Пин, к которому подключен сигнальный вывод датчика движения
+const int servoPin = 9;  // Пин, к которому подключен сигнальный вывод сервопривода
+Servo doorServo;  // Объект для управления сервоприводом
+void setup() {
+  pinMode(motionSensorPin, INPUT);  // Установка пина датчика движения на вход
+  doorServo.attach(servoPin);  // Подключение сервопривода к пину
+}
+void loop() {
+  int motionDetected = digitalRead(motionSensorPin);  // Чтение состояния датчика движения
+  if (motionDetected == HIGH) {
+    openDoor();  // Вызов функции открытия двери
+  } else {
+    closeDoor();  // Вызов функции закрытия двери
+  }
+}
+void openDoor() {
+  doorServo.write(90);  // Поворот сервопривода для открытия двери
+  delay(1000);  // Задержка для стабилизации положения сервопривода
+}
+void closeDoor() {
+  doorServo.write(0);  // Поворот сервопривода для закрытия двери
+  delay(1000);  // Задержка для стабилизации положения сервопривода
+}
